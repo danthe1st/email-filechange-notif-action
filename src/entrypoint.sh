@@ -39,8 +39,6 @@ else
 fi
 
 changes="$(git diff --name-only "$before" "$after")"
-echo "changes: $changes"
-echo "number of entries in mailing list: ${#mailingListContent}"
 declare -a toNotify
 
 mkdir /tmp/validate
