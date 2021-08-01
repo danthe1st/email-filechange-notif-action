@@ -1,0 +1,45 @@
+name: 'Filechange E-Mail Notifier'
+author: 'danthe1st'
+description: 'This action allows you to send E-mail notifications on file changes.'
+inputs:
+  senderEmail:
+    description: 'The E-Mail address used to send the E-Mails'
+    required: true
+  mailingList:
+    description: 'A file in the repository or HTTP address that contains file patterns with E-Mail addresses that should be notified on file changes'
+    required: true
+  subjectLine:
+    description: 'The subject of the E-Mails to send'
+    default: 'GitHub file change notification'
+  smtpServer:
+    description: 'The SMTP server used to send E-Mails'
+    required: true
+  smtpPort:
+    description: 'The SMTP port used to send E-Mails'
+    required: false
+    default: 587
+  smtpUsername:
+    description: 'The SMTP user name used to send E-Mails'
+    required: true
+  smtpPassword:
+    description: 'The SMTP password used to send E-Mails'
+    required: true
+  githubToken:
+    description: 'Token used for cloning the repository'
+    required: false
+    default: ${{ github.token }}
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.mailingList }}
+    - ${{ inputs.senderEmail }}
+    - ${{ inputs.subjectLine }}
+    - ${{ inputs.smtpServer }}
+    - ${{ inputs.smtpPort }}
+    - ${{ inputs.smtpUsername }}
+    - ${{ inputs.smtpPassword }}
+    - ${{ inputs.githubToken }}
+branding:
+  icon: mail
+  color: white
