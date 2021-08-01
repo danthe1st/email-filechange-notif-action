@@ -48,6 +48,7 @@ git init
 while read -r mailingListEntry; do
 	filePattern="$(echo "$mailingListEntry"|cut -d' ' -f1)"
 	email="$(echo "$mailingListEntry"|cut -d' ' -f2)"
+	echo "$filePattern" > .gitignore
 	set +e
 	git check-ignore --no-index $changes
 	ignoreResult=$?
