@@ -60,11 +60,13 @@ while read -r mailingListEntry; do
 		fi
 	fi
 done <<< $mailingListContent
-message="The following files have been changed: "
+message="The following files in the repository $GITHUB_REPOSITORY have been changed: "
 
 for change in $changes; do
 	message="$message\n$change"
 done
+
+message="$message\n\nYou can view the changes using this link: $(jq -r ".compare" "$GITHUB_EVENT_PATH")"
 
 if [ ${#toNotify} -ne 0 ]; then
 	sendemail -f "$senderEmail" -bcc "${toNotify[@]}" -u "$subjectLine" -m "$message" -s "$smtpServer:$smtpPort" -o tls=yes -xu "$smtpUsername" -xp "$smtpPassword"
