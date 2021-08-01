@@ -13,7 +13,7 @@ jobs:
   notif:
     runs-on: ubuntu-latest
     steps:
-      - uses: danthe1st/email-filechange-notif-action@master
+      - uses: danthe1st/email-filechange-notif-action@v1
         with: 
           # Address to send E-Mails from
           senderEmail: ${{ secrets.SENDER_EMAIL }}
